@@ -7,6 +7,7 @@ import java.util.Map;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.pms.vo.SpuInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,15 @@ import com.atguigu.gmall.pms.service.SpuInfoService;
 public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
+
+    @ApiOperation("根据查询条件分页查询spu")
+    @GetMapping
+    public Resp<PageVo> querySpuByKeyPage(QueryCondition condition, @RequestParam(value = "catId", defaultValue = "0") Long catId){
+
+        PageVo pageVo = spuInfoService.querySpuByKeyPage(condition, catId);
+
+        return Resp.ok(pageVo);
+    }
 
     /**
      * 列表
@@ -64,7 +74,7 @@ public class SpuInfoController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('pms:spuinfo:save')")
-    public Resp<Object> save(@RequestBody SpuInfoEntity spuInfo){
+    public Resp<Object> save(@RequestBody SpuInfoVO spuInfo){
 		spuInfoService.save(spuInfo);
 
         return Resp.ok(null);
