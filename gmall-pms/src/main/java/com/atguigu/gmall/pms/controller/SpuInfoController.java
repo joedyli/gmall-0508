@@ -1,6 +1,11 @@
 package com.atguigu.gmall.pms.controller;
 
+import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -74,11 +79,13 @@ public class SpuInfoController {
     @ApiOperation("保存")
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('pms:spuinfo:save')")
-    public Resp<Object> save(@RequestBody SpuInfoVO spuInfo){
-		spuInfoService.save(spuInfo);
+    public Resp<Object> save(@RequestBody SpuInfoVO spuInfo) throws FileNotFoundException {
+
+        this.spuInfoService.saveSpuWithSku(spuInfo);
 
         return Resp.ok(null);
     }
+
 
     /**
      * 修改

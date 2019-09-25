@@ -13,7 +13,7 @@ public class ProductAttrValueVO extends ProductAttrValueEntity {
     private List<Object> valueSelected;
 
     // 重写setAttrValue，接受valueSelected数据
-    public void setAttrValue(List<Object> valueSelected) {
+    public void setValueSelected(List<Object> valueSelected) {
 
         if (CollectionUtils.isEmpty(valueSelected)){
             return ;
