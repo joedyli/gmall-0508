@@ -55,7 +55,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         return new PageVo(page);
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     public void saveSkuInfo(SpuInfoVO spuInfoVO, Long spuId) {
         List<SkuInfoVO> skuInfoVOS = spuInfoVO.getSkus();
         if (CollectionUtils.isEmpty(skuInfoVOS)){

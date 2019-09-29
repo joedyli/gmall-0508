@@ -89,6 +89,7 @@ public class SeckillPromotionController {
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sms:seckillpromotion:delete')")
     public Resp<Object> delete(@RequestBody Long[] ids){
+
 		seckillPromotionService.removeByIds(Arrays.asList(ids));
 
         return Resp.ok(null);

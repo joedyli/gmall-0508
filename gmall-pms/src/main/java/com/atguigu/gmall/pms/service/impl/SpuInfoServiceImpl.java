@@ -8,6 +8,7 @@ import com.atguigu.gmall.pms.vo.ProductAttrValueVO;
 import com.atguigu.gmall.pms.vo.SkuInfoVO;
 import com.atguigu.gmall.pms.vo.SpuInfoVO;
 import com.atguigu.gmall.sms.vo.SkuSaleVO;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +88,8 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         return new PageVo(page);
     }
 
-    @Transactional(rollbackFor = FileNotFoundException.class, noRollbackFor = ArithmeticException.class, timeout = 3, readOnly = true)
+//    @Transactional(rollbackFor = FileNotFoundException.class, noRollbackFor = ArithmeticException.class, timeout = 3, readOnly = true)
+    @GlobalTransactional
     @Override
     public void saveSpuWithSku(SpuInfoVO spuInfoVO) throws FileNotFoundException {
 
@@ -113,6 +115,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
 
         //FileInputStream xxxx = new FileInputStream(new File("xxxx"));
+//        int i = 1/0;
     }
 
     @Transactional
