@@ -1,0 +1,10 @@
+server:
+  port: 8086
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:9949
+  elasticsearch:
+    jest:
+      uris: http://172.16.116.100:9200
