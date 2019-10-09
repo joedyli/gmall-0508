@@ -1,26 +1,21 @@
 package com.atguigu.gmall.pms.service.impl;
 
 import com.atguigu.gmall.pms.dao.SpuInfoDescDao;
-import com.atguigu.gmall.pms.entity.*;
-import com.atguigu.gmall.pms.feign.GmallSmsFeign;
+import com.atguigu.gmall.pms.entity.ProductAttrValueEntity;
+import com.atguigu.gmall.pms.entity.SpuInfoDescEntity;
+import com.atguigu.gmall.pms.entity.SpuInfoEntity;
 import com.atguigu.gmall.pms.service.*;
 import com.atguigu.gmall.pms.vo.ProductAttrValueVO;
-import com.atguigu.gmall.pms.vo.SkuInfoVO;
 import com.atguigu.gmall.pms.vo.SpuInfoVO;
-import com.atguigu.gmall.sms.vo.SkuSaleVO;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -31,7 +26,6 @@ import com.atguigu.core.bean.Query;
 import com.atguigu.core.bean.QueryCondition;
 
 import com.atguigu.gmall.pms.dao.SpuInfoDao;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
@@ -111,8 +105,6 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
         // 2. 保存sku相关的
         skuInfoService.saveSkuInfo(spuInfoVO, spuId);
-
-
 
         //FileInputStream xxxx = new FileInputStream(new File("xxxx"));
 //        int i = 1/0;

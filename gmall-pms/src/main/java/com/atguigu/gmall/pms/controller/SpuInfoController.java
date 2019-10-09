@@ -1,29 +1,25 @@
 package com.atguigu.gmall.pms.controller;
 
-import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
-
 
 import com.atguigu.core.bean.PageVo;
+import com.atguigu.core.bean.Query;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.pms.entity.SpuInfoEntity;
+import com.atguigu.gmall.pms.service.SpuInfoService;
 import com.atguigu.gmall.pms.vo.SpuInfoVO;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.atguigu.gmall.pms.entity.SpuInfoEntity;
-import com.atguigu.gmall.pms.service.SpuInfoService;
-
-
-
+import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * spu信息
@@ -46,6 +42,14 @@ public class SpuInfoController {
         PageVo pageVo = spuInfoService.querySpuByKeyPage(condition, catId);
 
         return Resp.ok(pageVo);
+    }
+
+    @PostMapping("page")
+    public Resp<List<SpuInfoEntity>> querySpuByPageAndSale(@RequestBody QueryCondition condition){
+
+        IPage<SpuInfoEntity> page = this.spuInfoService.page(new Query<SpuInfoEntity>().getPage(condition), new QueryWrapper<SpuInfoEntity>().eq("publish_status", 1));
+
+        return Resp.ok(page.getRecords());
     }
 
     /**

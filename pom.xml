@@ -12,6 +12,8 @@
     <modules>
         <module>gmall-core</module>
         <module>gmall-admin</module>
+        <module>gmall-pms-interface</module>
+        <module>gmall-wms-interface</module>
     </modules>
 
 </project>

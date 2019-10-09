@@ -27,3 +27,15 @@ spring:
           uri: lb://wms-service
           predicates:
             - Path=/wms/**
+        - id: search-service
+          uri: lb://search-service
+          predicates:
+            - Path=/api/search/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: index-service
+          uri: lb://index-service
+          predicates:
+            - Path=/api/index/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
