@@ -12,7 +12,7 @@
     <artifactId>gmall-search</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>gmall-search</name>
-    <description>Demo project for Spring Boot</description>
+    <description>谷粒商城搜索微服务</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -22,16 +22,26 @@
     <dependencies>
         <dependency>
             <groupId>com.atguigu</groupId>
+            <artifactId>gmall-pms-interface</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atguigu</groupId>
+            <artifactId>gmall-wms-interface</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atguigu</groupId>
             <artifactId>gmall-core</artifactId>
             <version>1.0-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
-                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                    <artifactId>mybatis-plus</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>com.baomidou</groupId>
-                    <artifactId>mybatis-plus</artifactId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -39,6 +49,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
