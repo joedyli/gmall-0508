@@ -7,7 +7,7 @@ import java.util.List;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
-import com.atguigu.gmall.pms.CategoryVO;
+import com.atguigu.gmall.pms.vo.CategoryVO;
 import com.atguigu.gmall.pms.entity.CategoryEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

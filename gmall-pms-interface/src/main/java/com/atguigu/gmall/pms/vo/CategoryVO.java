@@ -1,4 +1,4 @@
-package com.atguigu.gmall.pms;
+package com.atguigu.gmall.pms.vo;
 
 import com.atguigu.gmall.pms.entity.CategoryEntity;
 import lombok.Data;

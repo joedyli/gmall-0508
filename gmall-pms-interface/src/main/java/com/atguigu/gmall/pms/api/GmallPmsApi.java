@@ -1,9 +1,9 @@
 package com.atguigu.gmall.pms.api;
 
-import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
-import com.atguigu.gmall.pms.CategoryVO;
+import com.atguigu.gmall.pms.vo.AttrGroupVO;
+import com.atguigu.gmall.pms.vo.CategoryVO;
 import com.atguigu.gmall.pms.entity.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,4 +32,16 @@ public interface GmallPmsApi {
 
     @GetMapping("pms/category/{pid}")
     public Resp<List<CategoryVO>> queryCategorysWithSub(@PathVariable("pid")Long pid);
+
+    @GetMapping("pms/skuinfo/info/{skuId}")
+    public Resp<SkuInfoEntity> skuInfo(@PathVariable("skuId") Long skuId);
+
+    @GetMapping("pms/spuinfo/info/{id}")
+    public Resp<SpuInfoEntity> spuInfo(@PathVariable("id") Long id);
+
+    @GetMapping("pms/spuinfodesc/info/{spuId}")
+    public Resp<SpuInfoDescEntity> spuinfodesc(@PathVariable("spuId") Long spuId);
+
+    @GetMapping("pms/attrgroup/withattrs/cat/{catId}")
+    public Resp<List<AttrGroupVO>> queryGroupWithAttrByCid(@PathVariable("catId")Long catId);
 }

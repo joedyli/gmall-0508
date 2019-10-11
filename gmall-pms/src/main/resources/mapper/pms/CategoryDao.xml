@@ -16,7 +16,7 @@
         <result property="productCount" column="product_count"/>
     </resultMap>
 
-    <resultMap id="subCategoryMap" type="com.atguigu.gmall.pms.CategoryVO">
+    <resultMap id="subCategoryMap" type="com.atguigu.gmall.pms.vo.CategoryVO">
         <result property="catId" column="cat_id"/>
         <result property="name" column="name"/>
         <result property="parentCid" column="parent_cid"/>

@@ -1,6 +1,6 @@
 package com.atguigu.gmall.pms.service.impl;
 
-import com.atguigu.gmall.pms.CategoryVO;
+import com.atguigu.gmall.pms.vo.CategoryVO;
 import com.atguigu.gmall.pms.entity.CategoryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

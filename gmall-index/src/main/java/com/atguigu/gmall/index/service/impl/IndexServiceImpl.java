@@ -1,25 +1,23 @@
 package com.atguigu.gmall.index.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.index.annotation.GuliCache;
 import com.atguigu.gmall.index.feign.GmallPmsClient;
 import com.atguigu.gmall.index.service.IndexService;
-import com.atguigu.gmall.pms.CategoryVO;
+import com.atguigu.gmall.pms.vo.CategoryVO;
 import com.atguigu.gmall.pms.entity.CategoryEntity;
 import org.apache.commons.lang3.StringUtils;
-import org.redisson.Redisson;
+import org.redisson.api.RCountDownLatch;
 import org.redisson.api.RLock;
+import org.redisson.api.RReadWriteLock;
 import org.redisson.api.RedissonClient;
-import org.redisson.client.RedisClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -47,22 +45,31 @@ public class IndexServiceImpl implements IndexService {
         return listResp.getData();
     }
 
+    @GuliCache("index:cats:")
     @Override
     public List<CategoryVO> queryCatesByPid(Long pid) {
 
         // 1. 先查询缓存，缓存中有直接返回
-        String catJson = this.redisTemplate.opsForValue().get(KEY_PREFIX + pid);
-        if (StringUtils.isNotBlank(catJson)) {
-            List<CategoryVO> categoryVOS = JSON.parseArray(catJson, CategoryVO.class);
-            return categoryVOS;
-        }
+//        String catJson = this.redisTemplate.opsForValue().get(KEY_PREFIX + pid);
+//        if (StringUtils.isNotBlank(catJson)) {
+//            List<CategoryVO> categoryVOS = JSON.parseArray(catJson, CategoryVO.class);
+//            return categoryVOS;
+//        }
+
+        // 加分布式锁
+//        RLock lock = this.redissonClient.getLock("lock");
+//        lock.lock();
+
+        // 再次查询缓存中有没有数据
 
         // 2. 查询数据库
         Resp<List<CategoryVO>> listResp = this.gmallPmsClient.queryCategorysWithSub(pid);
         List<CategoryVO> categoryVOS = listResp.getData();
 
         // 3. 放入缓存
-        this.redisTemplate.opsForValue().set(KEY_PREFIX + pid, JSON.toJSONString(categoryVOS), TIMEOUT + new Random(10).nextInt(), TimeUnit.DAYS);
+//        this.redisTemplate.opsForValue().set(KEY_PREFIX + pid, JSON.toJSONString(categoryVOS), TIMEOUT + new Random(10).nextInt(), TimeUnit.DAYS);
+//
+//        lock.unlock();
 
         return categoryVOS;
     }
@@ -85,6 +92,60 @@ public class IndexServiceImpl implements IndexService {
         this.redisTemplate.opsForValue().set("num", n.toString());
 
         //lock.unlock();
+    }
+
+    @Override
+    public String testread() {
+        RReadWriteLock readWrite = this.redissonClient.getReadWriteLock("readWrite");
+        RLock rLock = readWrite.readLock();
+
+        rLock.lock(10, TimeUnit.SECONDS);
+
+        String msg = this.redisTemplate.opsForValue().get("msg");
+
+//        rLock.unlock();
+
+        return msg;
+    }
+
+    @Override
+    public String testwrite() {
+        RReadWriteLock readWrite = this.redissonClient.getReadWriteLock("readWrite");
+
+        RLock rLock = readWrite.writeLock();
+        rLock.lock(10, TimeUnit.SECONDS);
+
+        this.redisTemplate.opsForValue().set("msg", UUID.randomUUID().toString());
+
+//        rLock.unlock();
+
+        return "写入成功。。。。。。";
+    }
+
+    @Override
+    public String testlatch() throws InterruptedException {
+
+        RCountDownLatch latch = this.redissonClient.getCountDownLatch("anyCountDownLatch");
+
+        String countString = this.redisTemplate.opsForValue().get("count");
+        int count = Integer.parseInt(countString);
+        latch.trySetCount(count);
+        latch.await();
+
+        return "班长锁门。。。。。。";
+    }
+
+    @Override
+    public String testout() {
+        RCountDownLatch latch = this.redissonClient.getCountDownLatch("anyCountDownLatch");
+        latch.countDown();
+
+        String countString = this.redisTemplate.opsForValue().get("count");
+        Integer count = Integer.parseInt(countString);
+        count--;
+        this.redisTemplate.opsForValue().set("count", count.toString());
+
+        return "出来一个人。。。。。。";
     }
 
     public void testLock1() {
