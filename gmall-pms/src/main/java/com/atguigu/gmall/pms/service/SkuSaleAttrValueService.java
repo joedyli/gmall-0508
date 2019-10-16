@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 
+import java.util.List;
+
 
 /**
  * sku销售属性&值
@@ -16,5 +18,7 @@ import com.atguigu.core.bean.QueryCondition;
 public interface SkuSaleAttrValueService extends IService<SkuSaleAttrValueEntity> {
 
     PageVo queryPage(QueryCondition params);
+
+    List<SkuSaleAttrValueEntity> querySaleAttrVOSBySpuId(Long spuId);
 }
 

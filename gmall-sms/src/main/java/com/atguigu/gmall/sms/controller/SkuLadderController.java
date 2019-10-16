@@ -1,14 +1,17 @@
 package com.atguigu.gmall.sms.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
 import com.atguigu.core.bean.Resp;
+import com.atguigu.gmall.sms.vo.SaleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +36,13 @@ public class SkuLadderController {
     @Autowired
     private SkuLadderService skuLadderService;
 
+    @GetMapping("{skuId}")
+    public Resp<List<SaleVO>> querySaleVObySkuId(@PathVariable("skuId")Long skuId){
 
+        List<SaleVO> saleVOS = this.skuLadderService.querySaleVObySkuId(skuId);
+
+        return Resp.ok(saleVOS);
+    }
 
     /**
      * 列表

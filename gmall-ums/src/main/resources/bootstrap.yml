@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: ums-service
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:9949
+  redis:
+    host: 172.16.116.100

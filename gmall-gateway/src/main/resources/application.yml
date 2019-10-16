@@ -11,6 +11,8 @@ spring:
           uri: lb://pms-service
           predicates:
             - Path=/pms/**
+          filters:
+            - Auth
         - id: sms-service
           uri: lb://sms-service
           predicates:
@@ -39,3 +41,7 @@ spring:
             - Path=/api/index/**
           filters:
             - RewritePath=/api/(?<segment>.*), /$\{segment}
+auth:
+  jwt:
+    pubKeyPath: D:\\project-0508\\rsa\\rsa.pub
+    cookieName: GMALL-TOKEN

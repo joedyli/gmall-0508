@@ -1,0 +1,14 @@
+server:
+  port: 8089
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:9949
+auth:
+  jwt:
+    pubKeyPath: D:\\project-0508\\rsa\\rsa.pub
+    priKeyPath: D:\\project-0508\\rsa\\rsa.pri
+    expire: 180
+    cookieName: GMALL-TOKEN
+    secret: sdfSSL@s23$*(35jlsdjf(&

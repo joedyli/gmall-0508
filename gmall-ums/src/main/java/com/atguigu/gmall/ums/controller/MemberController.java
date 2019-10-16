@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import com.atguigu.gmall.ums.entity.MemberEntity;
 import com.atguigu.gmall.ums.service.MemberService;
 
-
+import javax.servlet.http.Cookie;
 
 
 /**
@@ -32,6 +32,31 @@ import com.atguigu.gmall.ums.service.MemberService;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
+    @GetMapping("check/{data}/{type}")
+    public Resp<Boolean> checkData(@PathVariable("data")String data, @PathVariable("type")Integer type){
+
+        Boolean b = this.memberService.checkData(data, type);
+
+        return Resp.ok(b);
+    }
+
+    @PostMapping("register")
+    public Resp<Object> register(MemberEntity memberEntity, @RequestParam("code") String code) throws IllegalAccessException {
+
+        Cookie cookie = new Cookie("xx", "xxx");
+        cookie.setPath("/order/confirm");
+
+        this.memberService.register(memberEntity, code);
+
+        return Resp.ok(null);
+    }
+
+    @GetMapping("query")
+    public Resp<MemberEntity> query(@RequestParam("username")String username, @RequestParam("password") String password) throws IllegalAccessException {
+        MemberEntity memberEntity = this.memberService.query(username, password);
+        return Resp.ok(memberEntity);
+    }
 
     /**
      * 列表

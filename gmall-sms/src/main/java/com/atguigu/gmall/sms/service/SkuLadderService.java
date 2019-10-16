@@ -1,9 +1,12 @@
 package com.atguigu.gmall.sms.service;
 
+import com.atguigu.gmall.sms.vo.SaleVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.atguigu.gmall.sms.entity.SkuLadderEntity;
 import com.atguigu.core.bean.PageVo;
 import com.atguigu.core.bean.QueryCondition;
+
+import java.util.List;
 
 
 /**
@@ -16,5 +19,7 @@ import com.atguigu.core.bean.QueryCondition;
 public interface SkuLadderService extends IService<SkuLadderEntity> {
 
     PageVo queryPage(QueryCondition params);
+
+    List<SaleVO> querySaleVObySkuId(Long skuId);
 }
 
