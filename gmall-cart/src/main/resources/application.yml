@@ -7,6 +7,11 @@ spring:
         server-addr: 127.0.0.1:9949
   redis:
     host: 172.16.116.100
+  rabbitmq:
+    host: 172.16.116.100
+    virtual-host: /fengge
+    username: fengge
+    password: fengge
 cart:
   jwt:
     pubKeyPath: D:\\project-0508\\rsa\\rsa.pub # \u516C\u94A5\u5730\u5740

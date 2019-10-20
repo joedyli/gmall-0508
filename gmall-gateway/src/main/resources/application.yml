@@ -11,8 +11,6 @@ spring:
           uri: lb://pms-service
           predicates:
             - Path=/pms/**
-          filters:
-            - Auth
         - id: sms-service
           uri: lb://sms-service
           predicates:
@@ -39,6 +37,12 @@ spring:
           uri: lb://index-service
           predicates:
             - Path=/api/index/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/order/**
           filters:
             - RewritePath=/api/(?<segment>.*), /$\{segment}
 auth:

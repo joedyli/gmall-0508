@@ -1,4 +1,4 @@
-package com.atguigu.gmall.oms.entity;
+package com.atguigu.gmall.oms.vo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
